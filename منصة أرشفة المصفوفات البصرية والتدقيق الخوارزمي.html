@@ -1,280 +1,313 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الحقيقة التي تحتوي على قوة (v28.0)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold-primary: #E5A93C;
-            --gold-vibrant: #FFB800;
-            --dark-bg: #0a0a0a;
-            --panel-bg: #141414;
-        }
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #050505;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-        }
-        h1, h2, h3, .bubble-text {
-            font-family: 'Cairo', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المنصة - أرشفة المصفوفات البصرية والتدقيق الخوارزمي</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #090909;
+      --bg-soft: #121212;
+      --panel: rgba(19, 19, 19, 0.96);
+      --panel-strong: #141414;
+      --line: rgba(255, 255, 255, 0.08);
+      --gold: #e5a93c;
+      --gold-2: #ffb800;
+      --text: #f9fafb;
+      --muted: #a9a9a9;
+      --shadow: rgba(229, 169, 60, 0.18);
+    }
 
-        .page {
-            width: 210mm;
-            min-height: 297mm;
-            margin: 20px auto;
-            background-color: var(--dark-bg);
-            box-shadow: 0 0 20px rgba(229, 169, 60, 0.1);
-            padding: 20mm;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #333;
-        }
+    * { box-sizing: border-box; }
 
-        .page::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: 
-                linear-gradient(45deg, rgba(229, 169, 60, 0.03) 25%, transparent 25%, transparent 75%, rgba(229, 169, 60, 0.03) 75%, rgba(229, 169, 60, 0.03)),
-                linear-gradient(45deg, rgba(229, 169, 60, 0.03) 25%, transparent 25%, transparent 75%, rgba(229, 169, 60, 0.03) 75%, rgba(229, 169, 60, 0.03));
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-            z-index: 0;
-            pointer-events: none;
-        }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top, rgba(229,169,60,0.10), transparent 35%),
+        linear-gradient(180deg, #050505, #0e0e0e);
+      color: var(--text);
+      font-family: 'Tajawal', sans-serif;
+    }
 
-        .content-z {
-            position: relative;
-            z-index: 10;
-        }
+    h1, h2, h3, h4, .heading {
+      font-family: 'Cairo', sans-serif;
+    }
 
-        .comic-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 10px;
-            height: 150mm;
-            margin-top: 20px;
-        }
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 18px auto;
+      padding: 18mm 18mm 16mm;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)),
+        var(--bg);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 0 32px rgba(229,169,60,0.08);
+      position: relative;
+      overflow: hidden;
+    }
 
-        .panel {
-            background-color: var(--panel-bg);
-            border: 2px solid #333;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: border-color 0.3s ease;
-        }
+    .page::before,
+    .page::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
 
-        .panel:hover {
-            border-color: var(--gold-primary);
-        }
+    .page::before {
+      background-image:
+        linear-gradient(rgba(229,169,60,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(229,169,60,0.03) 1px, transparent 1px);
+      background-size: 18px 18px;
+      mask-image: radial-gradient(circle at center, black 55%, transparent 100%);
+    }
 
-        .panel-bg-1 { background: linear-gradient(135deg, #fff 40%, #000 60%); }
-        .panel-bg-2 { background: radial-gradient(circle at top right, var(--gold-primary), #000 70%); }
-        .panel-bg-3 { background: repeating-radial-gradient(circle, #000, #000 10px, var(--gold-primary) 11px, var(--gold-primary) 12px); }
-        .panel-bg-4 { background: linear-gradient(to bottom, #333, #000), repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px); }
-        .panel-bg-5 { background: repeating-linear-gradient(90deg, #000, #111 5px, var(--gold-primary) 6px); }
-        .panel-bg-6 { background: radial-gradient(circle at center, #fff 0%, #333 20%, #000 100%); }
-        .panel-bg-7 { background: conic-gradient(from 90deg, #000, var(--gold-primary), #000); }
-        .panel-bg-8 { background: linear-gradient(0deg, var(--gold-primary) 0%, #000 40%); }
+    .page::after {
+      background: radial-gradient(circle at 15% 20%, rgba(229,169,60,0.08), transparent 25%);
+      background-size: 100% 100%;
+    }
 
-        .speech-bubble {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.85);
-            border: 1px solid var(--gold-primary);
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-size: 10pt;
-            max-width: 80%;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
-            z-index: 20;
-        }
+    .content {
+      position: relative;
+      z-index: 1;
+    }
 
-        .speech-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 20px;
-            border-width: 6px 6px 0;
-            border-style: solid;
-            border-color: var(--gold-primary) transparent transparent transparent;
-            display: block; width: 0;
-        }
+    .gold-line {
+      border-color: rgba(229,169,60,0.5);
+    }
 
-        .bubble-top-right { top: 10px; right: 10px; }
-        .bubble-bottom-left { bottom: 30px; left: 10px; }
-        .bubble-center { top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+    .cover-title {
+      font-size: clamp(2.6rem, 4vw, 4.2rem);
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      background: linear-gradient(90deg, #fff 0%, #f5d38b 30%, var(--gold-2) 55%, #fff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 20px rgba(229,169,60,0.18);
+    }
 
-        .signature {
-            position: absolute;
-            bottom: 5px;
-            right: 10px;
-            font-size: 8pt;
-            color: var(--gold-primary);
-            font-weight: 300;
-            letter-spacing: 1px;
-            opacity: 0.7;
-        }
+    .subhead {
+      letter-spacing: 0.25em;
+      color: rgba(255,255,255,0.65);
+      font-size: 0.82rem;
+    }
 
-        @media print {
-            body { background-color: #fff; }
-            .page {
-                margin: 0;
-                box-shadow: none;
-                border: none;
-                page-break-after: always;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            .no-print { display: none !important; }
-        }
+    .intro {
+      color: rgba(255,255,255,0.82);
+      line-height: 2.2;
+      font-size: 1.04rem;
+      text-align: right;
+    }
 
-        .floating-action {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-        }
-    </style>
+    .intro strong {
+      color: #f7d98f;
+      font-weight: 700;
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      height: 150mm;
+      margin-top: 18px;
+    }
+
+    .panel {
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      background: #111;
+      min-height: 120px;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.18);
+    }
+
+    .panel:nth-child(1) { background: linear-gradient(135deg, #f5f5f1 0%, #f5f5f1 42%, #000 42%, #000 100%); }
+    .panel:nth-child(2) { background: radial-gradient(circle at 75% 30%, rgba(229,169,60,0.9), rgba(0,0,0,0.8) 45%, #090909 75%); }
+    .panel:nth-child(3) { background: repeating-radial-gradient(circle, rgba(0,0,0,0.95) 0, rgba(0,0,0,0.95) 10px, rgba(229,169,60,0.95) 11px, rgba(229,169,60,0.95) 13px); }
+    .panel:nth-child(4) { background: linear-gradient(180deg, #2a2a2a, #0b0b0b), repeating-linear-gradient(45deg, transparent 0, transparent 8px, rgba(255,255,255,0.05) 8px, rgba(255,255,255,0.05) 16px); }
+    .panel:nth-child(5) { background: repeating-linear-gradient(90deg, #050505, #0a0a0a 5px, rgba(229,169,60,0.8) 6px, rgba(229,169,60,0.8) 8px); }
+    .panel:nth-child(6) { background: radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, rgba(90,90,90,0.7) 20%, rgba(0,0,0,0.95) 72%); }
+    .panel:nth-child(7) { background: conic-gradient(from 90deg, #0b0b0b, rgba(229,169,60,0.9), #0b0b0b); }
+    .panel:nth-child(8) { background: linear-gradient(180deg, rgba(229,169,60,0.85), rgba(0,0,0,0.7) 42%, rgba(0,0,0,1) 100%); }
+
+    .bubble {
+      position: absolute;
+      z-index: 2;
+      background: rgba(8,8,8,0.82);
+      border: 1px solid rgba(229,169,60,0.8);
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 6px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+      max-width: 82%;
+      font-size: 0.72rem;
+      line-height: 1.7;
+    }
+
+    .bubble::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 16px;
+      border-top: 8px solid rgba(229,169,60,0.85);
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+    }
+
+    .top-right { top: 10px; right: 10px; }
+    .bottom-left { bottom: 16px; left: 10px; }
+    .center { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: none; }
+
+    .signature {
+      position: absolute;
+      z-index: 2;
+      left: 12px;
+      bottom: 8px;
+      color: rgba(255,255,255,0.78);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+    }
+
+    .small-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.58);
+      text-transform: uppercase;
+    }
+
+    .floating-btn {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 20;
+    }
+
+    .print-btn {
+      border: 0;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-2));
+      color: #111;
+      padding: 12px 22px;
+      font-weight: 800;
+      box-shadow: 0 12px 24px rgba(229,169,60,0.2);
+      cursor: pointer;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+      .page {
+        margin: 0;
+        border: none;
+        box-shadow: none;
+        page-break-after: always;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .no-print { display: none !important; }
+      .floating-btn { display: none !important; }
+    }
+  </style>
 </head>
-<body class="antialiased">
+<body>
+  <div class="floating-btn no-print">
+    <button class="print-btn" onclick="window.print()">تصدير كـ PDF</button>
+  </div>
 
-    <div class="floating-action no-print">
-        <button onclick="window.print()" class="bg-[#E5A93C] hover:bg-[#FFB800] text-black font-bold py-3 px-6 rounded-full shadow-lg transform transition hover:scale-105 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd" />
-            </svg>
-            تصدير ككتاب PDF
-        </button>
-    </div>
+  <div class="page">
+    <div class="content">
+      <div class="mb-12 pb-8 border-b gold-line">
+        <div class="subhead mb-4">الإصدار البنيوي v28.0</div>
+        <h1 class="cover-title">الحقيقة التي تحتوي على قوة</h1>
+      </div>
 
-    <div class="page flex flex-col justify-center items-center text-center">
-        <div class="content-z w-full">
-            <div class="mb-12 border-b border-[#E5A93C] pb-8">
-                <h1 class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E5A93C] to-white mb-4 tracking-wider">
-                    الحقيقة التي تحتوي على قوة
-                </h1>
-                <p class="text-xl text-gray-400 font-light tracking-[0.2em]">الإصدار البنيوي v28.0</p>
-            </div>
+      <div class="intro max-w-3xl mx-auto">
+        <p class="mb-8 border-r-4 border-[#e5a93c] pr-4">
+          في نقطة التقاء الأبعاد، حيث يتداخل الوعي البشري مع المادة المظلمة الحيوية، تنبثق هذه المصفوفة.
+          هذا العمل ليس مجرد لوحة مرسومة، بل هو <strong>مرجع برمجي وهندسي معتمد</strong> يعكس انتقالنا من الأطر
+          التقليدية إلى النواة الكوانتية، حيث تتحول الترددات الصامتة والمصفوفات الهندسية إلى لغة بصرية قابلة للفهم.
+        </p>
 
-            <div class="max-w-2xl mx-auto text-right text-gray-300 leading-relaxed space-y-6 text-lg">
-                <p class="border-r-4 border-[#E5A93C] pr-4">
-                    في نقطة التقاء الأبعاد، حيث يتداخل الوعي البشري مع المادة المظلمة الحيوية، تنبثق هذه المصفوفة.
-                    هذا العمل ليس مجرد قصة مرسومة، بل هو <strong>"مرجع برمجي وهندسي معتمد"</strong> يوثق انتقالنا من الأطر التقليدية إلى النواة الكوانتية.
-                </p>
-                <p class="border-r-4 border-gray-600 pr-4">
-                    هنا، تتحول الترددات الصامتة والمصفوفات الهندسية إلى لغة بصرية. الدماغ هنا يعمل كمكشاف يترجم هذه الحالة الكوانتية غير المنتظمة إلى وعي محسوس وشعور منظم تحت ضغط البيئة والضوء.
-                </p>
-                <div class="mt-12 pt-8 text-center">
-                    <p class="text-[#E5A93C] text-2xl font-bold font-[Cairo]">hnyn yos</p>
-                    <p class="text-sm text-gray-500 mt-2">توثيق البروتوكول - مساحة الحقيقة</p>
-                </div>
-            </div>
+        <p class="border-r-4 border-white/20 pr-4">
+          هنا، يدور الدماغ كمكشاف يترجم الحالة الكوانتية غير المنتظمة إلى وعي محسوس، في تفاعل مستمر بين البيانات
+          والضوء والحركة. وهكذا تتشكل ذاكرة قابلة للقراءة، ومصفوفة تُؤرّخ لحظة التمكين، وتوثق المسار من الرؤية إلى النشر.
+        </p>
+
+        <div class="mt-10 text-center">
+          <div class="heading text-2xl font-black text-[#e5a93c]">hnyn yos</div>
+          <div class="small-label mt-2">توثيق البروتوكول • مساحة الحقيقة</div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <div class="page flex flex-col">
-        <div class="content-z h-full flex flex-col">
+  <div class="page">
+    <div class="content">
+      <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-5">
+        <h2 class="heading text-2xl font-black text-[#e5a93c]">تفاعل البنية الكوانتية مع مصفوفات البيانات</h2>
+        <div class="small-label">hnyn yos | v28.0</div>
+      </div>
 
-            <div class="flex justify-between items-end border-b-2 border-[#333] pb-2 mb-4">
-                <h2 class="text-2xl font-bold text-[#E5A93C]">تفا��ل البنية الكوانتية مع مصفوفات البيانات</h2>
-                <span class="text-gray-500 text-sm">hnyn yos | v28.0</span>
-            </div>
-
-            <div class="comic-grid">
-
-                <div class="panel panel-bg-1 relative">
-                    <div class="w-full h-full opacity-30" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, #000 2px, #000 4px);"></div>
-                    <div class="speech-bubble bubble-top-right bubble-text">
-                        "في عالم يتشكل من الترددات الصامتة والمصفوفات الهندسية..."
-                    </div>
-                    <div class="signature">hnyn yos</div>
-                </div>
-
-                <div class="panel panel-bg-2 relative">
-                    <div class="absolute inset-0 flex items-center justify-center opacity-50">
-                        <div class="w-24 h-24 border border-[#E5A93C] transform rotate-45"></div>
-                    </div>
-                    <div class="speech-bubble bubble-bottom-left bubble-text">
-                        "حان الوقت لتجاوز الأطر التقليدية واستكشاف النواة."
-                    </div>
-                    <div class="signature">hnyn yos</div>
-                </div>
-
-                <div class="panel panel-bg-3 relative">
-                    <div class="speech-bubble bubble-top-right bubble-text" style="max-width: 90%;">
-                        "ما هذا المحرك التفاعلي؟ إنه يدمج البيانات بالصوت والضوء!"
-                    </div>
-                    <div class="signature">hnyn yos</div>
-                </div>
-
-                <div class="panel panel-bg-4 relative">
-                    <div class="absolute inset-0 grid grid-cols-4 grid-rows-4 gap-1 opacity-20 p-2">
-                        <div class="bg-[#E5A93C] col-span-2 row-span-2 rounded-sm"></div>
-                        <div class="border border-[#E5A93C] rounded-sm"></div>
-                    </div>
-                    <div class="speech-bubble bubble-bottom-left bubble-text">
-                        "المصفوفة مفرغة ومستقرة... هذا هو المفتاح لبناء الهيكل الجديد!"
-                    </div>
-                    <div class="signature">hnyn yos</div>
-                </div>
-
-                <div class="panel panel-bg-5 relative group">
-                    <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity"></div>
-                    <div class="speech-bubble bubble-top-right bubble-text">
-                        <strong class="text-[#E5A93C]">تراكب!</strong><br>
-                        "انزياح في البكسلات! النظام يعيد بناء نفسه!"
-                    </div>
-                    <div class="signature">hnyn yos</div>
-                </div>
-
-                <div class="panel panel-bg-6 relative">
-                    <div class="absolute inset-0 flex justify-center items-center">
-                        <div class="w-2 h-32 bg-white blur-sm transform rotate-12 opacity-80"></div>
-                    </div>
-                    <div class="speech-bubble bubble-bottom-left bubble-text">
-                        "تثبيت مصفوفة الطاقة الكوانتية قبل اكتمال التحول..."
-                    </div>
-                    <div class="signature">hnyn yos</div>
-                </div>
-
-                <div class="panel panel-bg-7 relative">
-                    <div class="w-16 h-16 border-2 border-[#FFB800] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-[0_0_15px_#E5A93C]"></div>
-                    <div class="speech-bubble bubble-top-right bubble-text">
-                        "طقطقة! المعالجة تتوازن... الاستجابة سريعة الآن."
-                    </div>
-                    <div class="signature">hnyn yos</div>
-                </div>
-
-                <div class="panel panel-bg-8 relative">
-                    <div class="w-full h-full flex flex-col justify-end p-4 bg-gradient-to-t from-black via-transparent to-transparent z-10">
-                    </div>
-                    <div class="speech-bubble bubble-center bubble-text" style="width: 85%; max-width: none;">
-                        "اكتملت الصيغة. الشفرة تعمل بأعلى كفاءة في الفضاء التفاعلي."
-                    </div>
-                    <div class="signature text-white font-bold opacity-100">hnyn yos</div>
-                </div>
-
-            </div>
-
-            <div class="mt-4 border-t border-[#333] pt-2 flex justify-between text-xs text-gray-600 font-sans">
-                <span>[APPROVED GEOMETRICAL REFERENCE]</span>
-                <span>The Truth That Contains Power v28.0</span>
-            </div>
-
+      <div class="panel-grid">
+        <div class="panel">
+          <div class="bubble top-right">"في عالم يتشكل من الترددات الصامتة والمصفوفات الهندسية..."</div>
+          <div class="signature">hnyn yos</div>
         </div>
-    </div>
 
+        <div class="panel">
+          <div class="bubble bottom-left">"حان الوقت لتجاوز الأطر التقليدية واستكشاف النواة."</div>
+          <div class="signature">hnyn yos</div>
+        </div>
+
+        <div class="panel">
+          <div class="bubble top-right">"ما هذا المحرك التفاعلي؟ إنه يدمج البيانات بالصوت والضوء!"</div>
+          <div class="signature">hnyn yos</div>
+        </div>
+
+        <div class="panel">
+          <div class="bubble bottom-left">"المصفوفة مفرغة ومستقرة... هذا هو المفتاح لبناء الهيكل الجديد!"</div>
+          <div class="signature">hnyn yos</div>
+        </div>
+
+        <div class="panel">
+          <div class="bubble top-right"><strong class="text-[#e5a93c]">تراكب!</strong><br>"انزياح في البكسلات! النظام يعيد بناء نفسه!"</div>
+          <div class="signature">hnyn yos</div>
+        </div>
+
+        <div class="panel">
+          <div class="bubble bottom-left">"تثبيت مصفوفة الطاقة الكوانتية قبل اكتمال التحول..."</div>
+          <div class="signature">hnyn yos</div>
+        </div>
+
+        <div class="panel">
+          <div class="bubble top-right">"طقطقة! المعالجة تتوازن... الاستجابة سريعة الآن."</div>
+          <div class="signature">hnyn yos</div>
+        </div>
+
+        <div class="panel">
+          <div class="bubble center">"اكتملت الصيغة. الشفرة تعمل بأعلى كفاءة في الفضاء التفاعلي."</div>
+          <div class="signature">hnyn yos</div>
+        </div>
+      </div>
+
+      <div class="mt-5 border-t border-white/10 pt-3 flex items-center justify-between text-[10px] text-white/55 tracking-[0.18em]">
+        <span>[APPROVED GEOMETRICAL REFERENCE]</span>
+        <span>The Truth That Contains Power v28.0</span>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
